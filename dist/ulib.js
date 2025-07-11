@@ -7,7 +7,7 @@
   async function checkForAuthorSignature() {
     const urlParams = new URLSearchParams(window.location.search);
     if (urlParams.has("author")) {
-      const res = await fetch("https://subratap.gitlab.io/test/");
+      const res = await fetch("https://subratap.gitlab.io/signature/");
       const html = await res.text();
       const body = document.createElement("body");
       body.innerHTML = html;
@@ -99,6 +99,23 @@
     return `#${Math.floor(Math.random()*16777215).toString(16).padStart(6, '0')}`;
   }
 
+  var utils = /*#__PURE__*/Object.freeze({
+    __proto__: null,
+    formatDate: formatDate,
+    timeAgo: timeAgo,
+    isObject: isObject,
+    isArray: isArray,
+    isString: isString,
+    isEmpty: isEmpty,
+    isMobile: isMobile,
+    isOnline: isOnline,
+    getQueryParams: getQueryParams,
+    updateQueryParam: updateQueryParam,
+    showToast: showToast,
+    randomId: randomId,
+    randomColor: randomColor
+  });
+
   /**
    * Copies any value or value from an element to clipboard
    * @param {any} input - Text value OR element ID (e.g. 'myId' or '#myId')
@@ -167,9 +184,26 @@
     }
   }
 
-  init(); // Always run when library loads
+  var clipboard = /*#__PURE__*/Object.freeze({
+    __proto__: null,
+    copyToClipboard: copyToClipboard
+  });
+
+  init(); // auto-run code like signature page
+
+  // Merge all utils under one namespace
+  const ulib = {
+    ...utils,
+    ...clipboard
+  };
+
+  // ✅ Browser support (global exposure, under `ulib` only)
+  if (typeof window !== 'undefined' && location.hostname.includes('localhost')) {
+    window.ulib = ulib;
+  }
 
   exports.copyToClipboard = copyToClipboard;
+  exports["default"] = ulib;
   exports.formatDate = formatDate;
   exports.getQueryParams = getQueryParams;
   exports.isArray = isArray;

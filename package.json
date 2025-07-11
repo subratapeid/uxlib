@@ -3,10 +3,12 @@
   "version": "1.0.0",
   "description": "A clean and powerful utility library by Subrata",
   "main": "dist/ulib.js",
-  "type": "module",
+  "module": "dist/ulib.es.js",        
   "exports": {
-    ".": "./dist/ulib.js"
+    "import": "./dist/ulib.es.js",    
+    "require": "./dist/ulib.js"       
   },
+  "type": "module",                  
   "scripts": {
     "build": "rollup -c"
   },
@@ -15,9 +17,14 @@
   "keywords": [
     "ulib",
     "utils",
-    "JS Library",
-    "subrata's Library",
-    "utility Library"
+    "js-library",
+    "utility-library",
+    "subrata",
+    "helpers"
+  ],
+  "files": [
+    "dist",
+    "src"
   ],
   "devDependencies": {
     "rollup": "^2.79.2",
