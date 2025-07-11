@@ -31,9 +31,9 @@ export function isEmpty(val) {
   return val == null || (typeof val === 'string' && val.trim() === '') || (Array.isArray(val) && val.length === 0) || (isObject(val) && Object.keys(val).length === 0);
 }
 
-export function copyToClipboard(text) {
-  navigator.clipboard.writeText(text).then(() => console.log("Copied to clipboard"));
-}
+// export function copyToClipboard(text) {
+//   navigator.clipboard.writeText(text).then(() => console.log("Copied to clipboard"));
+// }
 
 export function isMobile() {
   return /Mobi|Android/i.test(navigator.userAgent);

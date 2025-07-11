@@ -36,16 +36,22 @@
   <!-- Clipboard -->
   <div>
     <h4>📋 Copy to Clipboard:</h4>
-    <button onclick="ulib.copyToClipboard('Hello from ulib!')">
+    <button onclick="copy(`Hello from ulib!`)">
       Copy "Hello from ulib!"
     </button>
   </div>
 
+ 
+
+  <input type="text" id="userName" value="Subrata B." />
+<button onclick="copy('userName')">Copy Name</button>
+
+
   <!-- Toast -->
   <div>
     <h4>🔔 Show Toast:</h4>
-    <button onclick="ulib.showToast('✅ Task Done!', 'success')">Success</button>
-    <button onclick="ulib.showToast('⚠️ Warning!', 'error')">Error</button>
+    <button onclick="ulib.showToast('✅ Task Done!')">Success</button>
+    <button onclick="ulib.showToast('⚠️ Warning!')">Error</button>
     <button onclick="ulib.showToast('ℹ️ Info')">Info</button>
   </div>
 
@@ -75,7 +81,7 @@
   <!-- Type Checker -->
   <div>
     <h4>🧪 Check isEmpty:</h4>
-    <button onclick="document.getElementById('emptyOutput').innerText = ulib.isEmpty([])">
+    <button onclick="document.getElementById('emptyOutput').innerText = ulib.isEmpty(`[Data1, Data2]`)">
       Check empty array
     </button>
     <div class="output" id="emptyOutput"></div>
@@ -102,5 +108,16 @@
     <div class="output" id="queryOutput"></div>
   </div>
 
+
+
+   <script>
+    // Copy object with toast/log
+function copy(data=""){
+ulib.copyToClipboard(data, {
+  onSuccess: () => ulib.showToast("Copied!"),
+  onError: () => ulib.showToast("Failed to copy")
+});
+}
+  </script>
 </body>
 </html>
