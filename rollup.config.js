@@ -1,8 +1,7 @@
 import { terser } from "rollup-plugin-terser";
-import path from "path";
 
 export default [
-  // ✅ ESM (for modern tools like Vite, React, etc.)
+  // ✅ ESM for React/Vite/modern builds
   {
     input: "src/index.js",
     output: {
@@ -13,7 +12,7 @@ export default [
     plugins: []
   },
 
-  // ✅ CommonJS (for Node.js)
+  // ✅ CommonJS for Node.js
   {
     input: "src/index.js",
     output: {
@@ -24,13 +23,13 @@ export default [
     plugins: []
   },
 
-  // ✅ UMD (for browser global use via <script>) with minification
+  // ✅ UMD for browser (with global window.ulib)
   {
-    input: "src/index.js",
+    input: "src/browser.js", // 👈 change here
     output: {
       file: "dist/ulib.min.js",
       format: "umd",
-      name: "ulib", // 👈 global variable name (window.ulib)
+      name: "ulib", // 👈 window.ulib
       sourcemap: true,
     },
     plugins: [terser()]
