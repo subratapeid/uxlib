@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>ulib Test Page</title>
+  <script src="../dist/ulib.min.js"></script>
+  <style>
+    h2 { color: #d35400; }
+    code { background: #f1f1f1; padding: 2px 5px; border-radius: 4px; }
+    button { margin: 5px; padding: 8px 16px; border: none; background: #ffc107; border-radius: 5px; cursor: pointer; }
+    .output { margin: 10px 0; font-weight: bold; }
+  </style>
+</head>
+<body>
+
+  <h2>🔧 ulib Demo</h2>
+
+  <!-- Format Date -->
+  <div>
+    <h4>📅 Format Date:</h4>
+    <button onclick="document.getElementById('dateOutput').innerText = ulib.formatDate('2025-07-10')">
+      Format 2025-07-10
+    </button>
+    <div class="output" id="dateOutput"></div>
+  </div>
+
+  <!-- Time Ago -->
+  <div>
+    <h4>⏳ Time Ago:</h4>
+    <button onclick="document.getElementById('agoOutput').innerText = ulib.timeAgo('2025-07-07')">
+      Show "ago" for 2025-07-07
+    </button>
+    <div class="output" id="agoOutput"></div>
+  </div>
+
+  <!-- Clipboard -->
+  <div>
+    <h4>📋 Copy to Clipboard:</h4>
+    <button onclick="ulib.copyToClipboard('Hello from ulib!')">
+      Copy "Hello from ulib!"
+    </button>
+  </div>
+
+  <!-- Toast -->
+  <div>
+    <h4>🔔 Show Toast:</h4>
+    <button onclick="ulib.showToast('✅ Task Done!', 'success')">Success</button>
+    <button onclick="ulib.showToast('⚠️ Warning!', 'error')">Error</button>
+    <button onclick="ulib.showToast('ℹ️ Info')">Info</button>
+  </div>
+
+  <!-- Random ID -->
+  <div>
+    <h4>🔢 Random ID:</h4>
+    <button onclick="document.getElementById('idOutput').innerText = ulib.randomId()">
+      Generate ID
+    </button>
+    <div class="output" id="idOutput"></div>
+  </div>
+
+  <!-- Random Color -->
+  <div>
+    <h4>🎨 Random Color:</h4>
+    <button onclick="
+      const color = ulib.randomColor();
+      document.getElementById('colorOutput').innerText = color;
+      document.getElementById('colorPreview').style.background = color;
+    ">
+      Generate Color
+    </button>
+    <div class="output" id="colorOutput"></div>
+    <div id="colorPreview" style="width:50px; height:20px; border:1px solid #ccc;"></div>
+  </div>
+
+  <!-- Type Checker -->
+  <div>
+    <h4>🧪 Check isEmpty:</h4>
+    <button onclick="document.getElementById('emptyOutput').innerText = ulib.isEmpty([])">
+      Check empty array
+    </button>
+    <div class="output" id="emptyOutput"></div>
+  </div>
+
+  <!-- Device -->
+  <div>
+    <h4>📱 Device Type:</h4>
+    <button onclick="document.getElementById('deviceOutput').innerText = ulib.isMobile() ? 'Mobile' : 'Desktop'">
+      Detect Device
+    </button>
+    <div class="output" id="deviceOutput"></div>
+  </div>
+
+  <!-- Query Params -->
+  <div>
+    <h4>🌐 Get URL Query:</h4>
+    <button onclick="
+      const params = ulib.getQueryParams();
+      document.getElementById('queryOutput').innerText = JSON.stringify(params, null, 2);
+    ">
+      Get Query Params
+    </button>
+    <div class="output" id="queryOutput"></div>
+  </div>
+
+</body>
+</html>

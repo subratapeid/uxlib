@@ -1,0 +1,26 @@
+{
+  "name": "ulib",
+  "version": "1.0.0",
+  "description": "A clean and powerful utility library by Subrata",
+  "main": "dist/ulib.js",
+  "type": "module",
+  "exports": {
+    ".": "./dist/ulib.js"
+  },
+  "scripts": {
+    "build": "rollup -c"
+  },
+  "author": "Subrata Porel",
+  "license": "MIT",
+  "keywords": [
+    "ulib",
+    "utils",
+    "JS Library",
+    "subrata's Library",
+    "utility Library"
+  ],
+  "devDependencies": {
+    "rollup": "^2.79.2",
+    "rollup-plugin-terser": "^7.0.2"
+  }
+}
