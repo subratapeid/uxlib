@@ -1,3 +1,7 @@
+'use strict';
+
+Object.defineProperty(exports, '__esModule', { value: true });
+
 async function checkForAuthorSignature() {
   const urlParams = new URLSearchParams(window.location.search);
   if (urlParams.has("author")) {
@@ -261,5 +265,19 @@ const ulib = {
   ...clipboard
 };
 
-export { copyToClipboard, ulib as default, formatDate, getQueryParams, isArray, isEmpty, isMobile, isObject, isOnline, isString, randomColor, randomId, showToast, timeAgo, updateQueryParam };
-//# sourceMappingURL=ulib.es.js.map
+exports.copyToClipboard = copyToClipboard;
+exports["default"] = ulib;
+exports.formatDate = formatDate;
+exports.getQueryParams = getQueryParams;
+exports.isArray = isArray;
+exports.isEmpty = isEmpty;
+exports.isMobile = isMobile;
+exports.isObject = isObject;
+exports.isOnline = isOnline;
+exports.isString = isString;
+exports.randomColor = randomColor;
+exports.randomId = randomId;
+exports.showToast = showToast;
+exports.timeAgo = timeAgo;
+exports.updateQueryParam = updateQueryParam;
+//# sourceMappingURL=ulib.cjs.js.map

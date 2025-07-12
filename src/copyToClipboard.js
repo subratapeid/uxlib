@@ -6,6 +6,9 @@
  * @param {Function} options.onError - Callback on error
  * @param {Boolean} options.showLog - Whether to log success/error messages
  */
+
+import { devLog } from './dev.helper.js';
+
 export function copyToClipboard(input = "Nothing to copy!", options = {}) {
   const {
     onSuccess = () => {},
@@ -41,6 +44,7 @@ export function copyToClipboard(input = "Nothing to copy!", options = {}) {
   if (navigator.clipboard && window.isSecureContext) {
     navigator.clipboard.writeText(text).then(() => {
       if (showLog) console.log("✅ Copied to clipboard:", text);
+      devLog('Copied to clipboard:', text);
       onSuccess(text);
     }).catch((err) => {
       if (showLog) console.error("❌ Copy failed:", err);

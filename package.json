@@ -3,11 +3,14 @@
   "version": "1.0.0",
   "description": "A clean and powerful utility library by Subrata",
   "sideEffects": false,
-  "main": "dist/ulib.js",
+  "main": "dist/ulib.cjs.js",
   "module": "dist/ulib.es.js",
+  "unpkg": "dist/ulib.min.js",
+  "browser": "dist/ulib.js",
   "exports": {
     "import": "./dist/ulib.es.js",
-    "require": "./dist/ulib.js"
+    "require": "./dist/ulib.cjs.js",
+    "default": "./dist/ulib.js"
   },
   "type": "module",
   "scripts": {

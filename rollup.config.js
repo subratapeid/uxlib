@@ -17,13 +17,27 @@ export default [
   {
     input: "src/index.js",
     output: {
-      file: "dist/ulib.js",
+      file: "dist/ulib.cjs.js",
       format: "cjs",
       sourcemap: true,
       exports: "named",
     },
     plugins: []
   },
+
+  // ✅ UMD for browser (unminified)
+  {
+    input: "src/browser.js",
+    output: {
+      file: "dist/ulib.js",
+      format: "umd",
+      name: "ulib",
+      sourcemap: true,
+      exports: "named",
+    },
+    plugins: [] // no minify
+  },
+
 
   // ✅ UMD for browser (CDN, global window.ulib)
   {
