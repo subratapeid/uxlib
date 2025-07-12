@@ -1,8 +1,14 @@
 //src/index.js
 import { init } from './core.js';
-init(); // auto-run code like signature page
+init(); // auto-run on initiate
+import * as utils from './utils.js';
+import * as clipboard from './copyToClipboard.js';
 
-
-// ✅ Export everything cleanly for Node & bundlers
+const ulib = {
+  ...utils,
+  ...clipboard
+};
+// ✅ Export
+export default ulib;
 export * from './utils.js';
 export * from './copyToClipboard.js';

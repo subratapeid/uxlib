@@ -93,6 +93,23 @@ function randomColor() {
   return `#${Math.floor(Math.random()*16777215).toString(16).padStart(6, '0')}`;
 }
 
+var utils = /*#__PURE__*/Object.freeze({
+  __proto__: null,
+  formatDate: formatDate,
+  timeAgo: timeAgo,
+  isObject: isObject,
+  isArray: isArray,
+  isString: isString,
+  isEmpty: isEmpty,
+  isMobile: isMobile,
+  isOnline: isOnline,
+  getQueryParams: getQueryParams,
+  updateQueryParam: updateQueryParam,
+  showToast: showToast,
+  randomId: randomId,
+  randomColor: randomColor
+});
+
 /**
  * Copies any value or value from an element to clipboard
  * @param {any} input - Text value OR element ID (e.g. 'myId' or '#myId')
@@ -161,8 +178,18 @@ function copyToClipboard(input = "Nothing to copy!", options = {}) {
   }
 }
 
-//src/index.js
-init(); // auto-run code like signature page
+var clipboard = /*#__PURE__*/Object.freeze({
+  __proto__: null,
+  copyToClipboard: copyToClipboard
+});
 
-export { copyToClipboard, formatDate, getQueryParams, isArray, isEmpty, isMobile, isObject, isOnline, isString, randomColor, randomId, showToast, timeAgo, updateQueryParam };
+//src/index.js
+init(); // auto-run on initiate
+
+const ulib = {
+  ...utils,
+  ...clipboard
+};
+
+export { copyToClipboard, ulib as default, formatDate, getQueryParams, isArray, isEmpty, isMobile, isObject, isOnline, isString, randomColor, randomId, showToast, timeAgo, updateQueryParam };
 //# sourceMappingURL=ulib.es.js.map
