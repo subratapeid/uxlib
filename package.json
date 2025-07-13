@@ -49,13 +49,7 @@
     "rollup": "^2.79.2",
     "rollup-plugin-terser": "^7.0.2"
   },
-  "peerDependencies": {
-    "@fullhuman/postcss-purgecss": "^7.0.2",
-    "postcss": "^8.5.6",
-    "postcss-import": "^16.1.1",
-    "cssnano": "^7.0.7"
-  },
-  "optionalDependencies": {
+  "dependencies": {
     "@fullhuman/postcss-purgecss": "^7.0.2",
     "postcss": "^8.5.6",
     "postcss-import": "^16.1.1",

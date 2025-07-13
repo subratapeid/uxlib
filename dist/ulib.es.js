@@ -126,13 +126,7 @@ var devDependencies = {
 	rollup: "^2.79.2",
 	"rollup-plugin-terser": "^7.0.2"
 };
-var peerDependencies = {
-	"@fullhuman/postcss-purgecss": "^7.0.2",
-	postcss: "^8.5.6",
-	"postcss-import": "^16.1.1",
-	cssnano: "^7.0.7"
-};
-var optionalDependencies = {
+var dependencies = {
 	"@fullhuman/postcss-purgecss": "^7.0.2",
 	postcss: "^8.5.6",
 	"postcss-import": "^16.1.1",
@@ -155,8 +149,7 @@ var pkg = {
 	license: license,
 	keywords: keywords,
 	devDependencies: devDependencies,
-	peerDependencies: peerDependencies,
-	optionalDependencies: optionalDependencies
+	dependencies: dependencies
 };
 
 function init() {

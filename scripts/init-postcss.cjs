@@ -2,16 +2,16 @@
 const fs = require('fs');
 const path = require('path');
 
-// ✅ Always use INIT_CWD for postinstall scripts to access original project root
 const configPath = path.resolve(process.env.INIT_CWD || process.cwd(), 'postcss.config.cjs');
 
 if (!fs.existsSync(configPath)) {
-  const content = `
-  const purgecss = require('@fullhuman/postcss-purgecss').default;
-const postcssImport = require('postcss-import');
+  const content = `const postcssImport = require('postcss-import');
 const cssnano = require('cssnano');
+const purgecss = require('@fullhuman/postcss-purgecss').default;
 
-module.exports = (isProduction = false) => ({
+const isProduction = process.env.NODE_ENV === 'production';
+
+module.exports = {
   plugins: [
     postcssImport(),
     ...(isProduction
@@ -24,8 +24,9 @@ module.exports = (isProduction = false) => ({
         ]
       : [])
   ]
-});
-  `;
+};
+`;
+
   fs.writeFileSync(configPath, content);
   console.log('[ulib] ✅ postcss.config.cjs created in project root.');
 } else {
