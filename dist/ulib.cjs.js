@@ -83,9 +83,7 @@ function devLog(...args) {
 var name = "ulib";
 var version = "1.0.0";
 var description = "A clean and powerful utility library by Subrata";
-var sideEffects = [
-	"./dist/ulib.css"
-];
+var sideEffects = false;
 var main = "dist/ulib.cjs.js";
 var module$1 = "dist/ulib.es.js";
 var unpkg = "dist/ulib.min.js";
