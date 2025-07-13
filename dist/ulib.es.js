@@ -76,6 +76,81 @@ function devLog(...args) {
   }, 0);
 }
 
+var name = "ulib";
+var version = "1.0.0";
+var description = "A clean and powerful utility library by Subrata";
+var sideEffects = false;
+var main = "dist/ulib.cjs.js";
+var module = "dist/ulib.es.js";
+var unpkg = "dist/ulib.min.js";
+var browser = "dist/ulib.js";
+var exports = {
+	"import": "./dist/ulib.es.js",
+	require: "./dist/ulib.cjs.js",
+	"default": "./dist/ulib.js"
+};
+var type = "module";
+var scripts = {
+	build: "rollup -c"
+};
+var author = "Subrata Porel";
+var license = "MIT";
+var keywords = [
+	"ulib",
+	"utils",
+	"js-library",
+	"utility-library",
+	"subrata",
+	"helpers"
+];
+var files = [
+	"dist",
+	"src"
+];
+var devDependencies = {
+	"@rollup/plugin-json": "^6.1.0",
+	rollup: "^2.79.2",
+	"rollup-plugin-terser": "^7.0.2"
+};
+var pkg = {
+	name: name,
+	version: version,
+	description: description,
+	sideEffects: sideEffects,
+	main: main,
+	module: module,
+	unpkg: unpkg,
+	browser: browser,
+	exports: exports,
+	type: type,
+	scripts: scripts,
+	author: author,
+	license: license,
+	keywords: keywords,
+	files: files,
+	devDependencies: devDependencies
+};
+
+const ulibCSS = `
+  .btn {
+    background: royalblue;
+    color: white;
+    padding: 0.5rem 1rem;
+    border-radius: 0.25rem;
+    font-weight: bold;
+    border: none;
+    cursor: pointer;
+  }
+
+  .text-center {
+    text-align: center;
+  }
+
+  .m-1 {
+    margin: 0.25rem;
+  }
+`;
+
 function init() {
   if (typeof window !== 'undefined') {
     if (document.readyState === 'loading') {
@@ -85,8 +160,18 @@ function init() {
     }
     window.__ulib_signature__ = true;
     // 🔒 Show log only in dev mode or if user enables debug manually
-    devLog("✅ ulib initialized");
+    devLog(`✅ ulib initialized Version: ${pkg.version}`);
   }
+
+  // Inject CSS once
+  if (!document.getElementById("ulib-style")) {
+    const style = document.createElement("style");
+    style.id = "ulib-style";
+    style.textContent = ulibCSS;
+    document.head.appendChild(style);
+    console.log("%cULib initialized with styles", "color: green;");
+  }
+
 }
 
 function formatDate(date) {

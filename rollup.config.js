@@ -1,4 +1,5 @@
 import { terser } from "rollup-plugin-terser";
+import json from '@rollup/plugin-json';
 
 export default [
   // ✅ ESM for modern builds (Vite, React, etc.)
@@ -10,7 +11,7 @@ export default [
       sourcemap: true,
       exports: "named",
     },
-    plugins: []
+    plugins: [json()]
   },
 
   // ✅ CommonJS for Node.js (require)
@@ -22,7 +23,7 @@ export default [
       sourcemap: true,
       exports: "named",
     },
-    plugins: []
+    plugins: [json()]
   },
 
   // ✅ UMD for browser (unminified)
@@ -35,7 +36,7 @@ export default [
       sourcemap: true,
       exports: "named",
     },
-    plugins: [] // no minify
+    plugins: [json()] // no minify
   },
 
 
@@ -49,6 +50,6 @@ export default [
       sourcemap: true,
       exports: "named",
     },
-    plugins: [terser()]
+    plugins: [json(), terser()]
   }
 ];
