@@ -167,23 +167,6 @@ function init() {
 
 }
 
-function formatDate(date) {
-  return new Date(date).toLocaleDateString("en-IN");
-}
-
-function timeAgo(date) {
-  const seconds = Math.floor((new Date() - new Date(date)) / 1000);
-  const intervals = {
-    year: 31536000, month: 2592000, week: 604800,
-    day: 86400, hour: 3600, minute: 60, second: 1
-  };
-  for (let [unit, value] of Object.entries(intervals)) {
-    const count = Math.floor(seconds / value);
-    if (count >= 1) return `${count} ${unit}${count > 1 ? 's' : ''} ago`;
-  }
-  return 'just now';
-}
-
 function isObject(val) {
   return val && typeof val === 'object' && !Array.isArray(val);
 }
@@ -313,7 +296,6 @@ function copyToClipboard(input = "Nothing to copy!", options = {}) {
 init(); // auto-run on initiate
 
 exports.copyToClipboard = copyToClipboard;
-exports.formatDate = formatDate;
 exports.getQueryParams = getQueryParams;
 exports.isArray = isArray;
 exports.isEmpty = isEmpty;
@@ -324,6 +306,5 @@ exports.isString = isString;
 exports.randomColor = randomColor;
 exports.randomId = randomId;
 exports.showToast = showToast;
-exports.timeAgo = timeAgo;
 exports.updateQueryParam = updateQueryParam;
 //# sourceMappingURL=ulib.cjs.js.map
