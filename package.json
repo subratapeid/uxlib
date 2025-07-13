@@ -2,9 +2,7 @@
   "name": "ulib",
   "version": "1.0.0",
   "description": "A clean and powerful utility library by Subrata",
-  "sideEffects": [
-    "./dist/ulib.css"
-  ],
+  "sideEffects": false,
   "main": "dist/ulib.cjs.js",
   "module": "dist/ulib.es.js",
   "unpkg": "dist/ulib.min.js",
