@@ -1,7 +1,9 @@
+// scripts/init-postcss.cjs
 const fs = require('fs');
 const path = require('path');
 
-const configPath = path.resolve(process.cwd(), 'postcss.config.cjs');
+// ✅ Always use INIT_CWD for postinstall scripts to access original project root
+const configPath = path.resolve(process.env.INIT_CWD || process.cwd(), 'postcss.config.cjs');
 
 if (!fs.existsSync(configPath)) {
   const content = `module.exports = require('ulib/postcss-preset')(process.env.NODE_ENV === 'production');\n`;
