@@ -1,5 +1,6 @@
 node_modules/
 src/
+test/
 package.lock.json
 postcss.config.cjs
 rollup.config.js
