@@ -1,7 +1,5 @@
 import { checkForAuthorSignature } from './signature.js';
-import { devLog } from './dev.helper.js';
-import pkg from '../package.json';
-
+import { devLog } from './helper/dev.helper.js';
 
 export function init() {
   if (typeof window !== 'undefined') {
@@ -10,9 +8,10 @@ export function init() {
     } else {
       checkForAuthorSignature();
     }
-    window.__ulib_signature__ = true;
-    // 🔒 Show log only in dev mode or if user enables debug manually
-    devLog(`✅ ulib initialized Version: ${pkg.version}`);
-  }
 
+    window.__ulib_signature__ = true;
+
+    // ✅ Version will be replaced at build time using Rollup plugin
+    devLog(`✅ ulib initialized Version: __ULIB_VERSION__`);
+  }
 }

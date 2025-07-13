@@ -1,3 +1,8 @@
+/*!
+ * ulib v1.0.0
+ * Author: Subrata Porel
+ */
+
 'use strict';
 
 Object.defineProperty(exports, '__esModule', { value: true });
@@ -80,79 +85,6 @@ function devLog(...args) {
   }, 0);
 }
 
-var name = "ulib";
-var version = "1.0.0";
-var description = "A clean and powerful utility library by Subrata";
-var sideEffects = false;
-var main = "dist/ulib.cjs.js";
-var module$1 = "dist/ulib.es.js";
-var unpkg = "dist/ulib.min.js";
-var browser = "dist/ulib.js";
-var type = "module";
-var exports$1 = {
-	".": {
-		"import": "./dist/ulib.es.js",
-		require: "./dist/ulib.cjs.js",
-		"default": "./dist/ulib.js"
-	},
-	"./css": "./dist/ulib.css"
-};
-var scripts = {
-	"build:js": "rollup -c",
-	"build:css": "cross-env MINIFY=false postcss src/css/index.css -o dist/ulib.css && cross-env MINIFY=true postcss src/css/index.css -o dist/ulib.min.css",
-	build: "npm run build:js && npm run build:css",
-	postinstall: "node scripts/init-postcss.cjs"
-};
-var files = [
-	"dist",
-	"scripts"
-];
-var author = "Subrata Porel";
-var license = "MIT";
-var keywords = [
-	"ulib",
-	"utils",
-	"js-library",
-	"utility-library",
-	"subrata",
-	"helpers"
-];
-var devDependencies = {
-	"@rollup/plugin-json": "^6.1.0",
-	"cross-env": "^7.0.3",
-	cssnano: "^7.0.7",
-	postcss: "^8.5.6",
-	"postcss-cli": "^11.0.1",
-	"postcss-import": "^16.1.1",
-	rollup: "^2.79.2",
-	"rollup-plugin-terser": "^7.0.2"
-};
-var dependencies = {
-	"@fullhuman/postcss-purgecss": "^7.0.2",
-	postcss: "^8.5.6",
-	"postcss-import": "^16.1.1",
-	cssnano: "^7.0.7"
-};
-var pkg = {
-	name: name,
-	version: version,
-	description: description,
-	sideEffects: sideEffects,
-	main: main,
-	module: module$1,
-	unpkg: unpkg,
-	browser: browser,
-	type: type,
-	exports: exports$1,
-	scripts: scripts,
-	files: files,
-	author: author,
-	license: license,
-	keywords: keywords,
-	devDependencies: devDependencies,
-	dependencies: dependencies
-};
-
 function init() {
   if (typeof window !== 'undefined') {
     if (document.readyState === 'loading') {
@@ -160,11 +92,12 @@ function init() {
     } else {
       checkForAuthorSignature();
     }
-    window.__ulib_signature__ = true;
-    // 🔒 Show log only in dev mode or if user enables debug manually
-    devLog(`✅ ulib initialized Version: ${pkg.version}`);
-  }
 
+    window.__ulib_signature__ = true;
+
+    // ✅ Version will be replaced at build time using Rollup plugin
+    devLog(`✅ ulib initialized Version: __ULIB_VERSION__`);
+  }
 }
 
 function formatDate(date) {

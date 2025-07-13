@@ -7,7 +7,7 @@
  * @param {Boolean} options.showLog - Whether to log success/error messages
  */
 
-import { devLog } from './dev.helper.js';
+import { devLog } from './helper/dev.helper.js';
 
 export function copyToClipboard(input = "Nothing to copy!", options = {}) {
   const {

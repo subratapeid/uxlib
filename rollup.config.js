@@ -1,8 +1,16 @@
 import { terser } from "rollup-plugin-terser";
 import json from '@rollup/plugin-json';
+import fs from 'fs';
+
+const pkg = JSON.parse(fs.readFileSync('./package.json', 'utf-8'));
+
+const banner = `/*!
+ * ulib v${pkg.version}
+ * Author: ${pkg.author}
+ */
+`;
 
 export default [
-  // ✅ ESM for modern builds (Vite, React, etc.)
   {
     input: "src/index.js",
     output: {
@@ -10,11 +18,10 @@ export default [
       format: "es",
       sourcemap: true,
       exports: "named",
+      banner
     },
     plugins: [json()]
   },
-
-  // ✅ CommonJS for Node.js (require)
   {
     input: "src/index.js",
     output: {
@@ -22,11 +29,10 @@ export default [
       format: "cjs",
       sourcemap: true,
       exports: "named",
+      banner
     },
     plugins: [json()]
   },
-
-  // ✅ UMD for browser (unminified)
   {
     input: "src/browser.js",
     output: {
@@ -35,12 +41,10 @@ export default [
       name: "ulib",
       sourcemap: true,
       exports: "named",
+      banner
     },
-    plugins: [json()] // no minify
+    plugins: [json()]
   },
-
-
-  // ✅ UMD for browser (CDN, global window.ulib)
   {
     input: "src/browser.js",
     output: {
@@ -49,6 +53,7 @@ export default [
       name: "ulib",
       sourcemap: true,
       exports: "named",
+      banner
     },
     plugins: [json(), terser()]
   }

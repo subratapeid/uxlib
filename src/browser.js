@@ -1,6 +1,6 @@
-import * as utils from './utils.js';
-import * as clipboard from './copyToClipboard.js';
-import { init } from './core.js';
+import * as utils from './js_modules/utils.js';
+import * as clipboard from './js_modules/copyToClipboard.js';
+import { init } from './js_modules/core.js';
 
 init();
 

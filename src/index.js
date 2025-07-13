@@ -1,14 +1,6 @@
 //src/index.js
-import { init } from './core.js';
+import { init } from './js_modules/core.js';
 init(); // auto-run on initiate
-// import * as utils from './utils.js';
-// import * as clipboard from './copyToClipboard.js';
-
-// const ulib = {
-//   ...utils,
-//   ...clipboard
-// };
-// ✅ Export
-
-export * from './utils.js';
-export * from './copyToClipboard.js';
+// Export each saperate modules
+export * from './js_modules/utils.js';
+export * from './js_modules/copyToClipboard.js';
