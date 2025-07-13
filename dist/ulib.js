@@ -270,6 +270,12 @@
   	"build:css": "cross-env MINIFY=false postcss src/css/index.css -o dist/ulib.css && cross-env MINIFY=true postcss src/css/index.css -o dist/ulib.min.css",
   	build: "npm run build:js && npm run build:css"
   };
+  var files = [
+  	"dist",
+  	"css.js",
+  	"ulib-css-build.js",
+  	"postcss.config.cjs"
+  ];
   var author = "Subrata Porel";
   var license = "MIT";
   var keywords = [
@@ -279,10 +285,6 @@
   	"utility-library",
   	"subrata",
   	"helpers"
-  ];
-  var files = [
-  	"dist",
-  	"css.js"
   ];
   var devDependencies = {
   	"@rollup/plugin-json": "^6.1.0",
@@ -306,10 +308,10 @@
   	type: type,
   	exports: exports$1,
   	scripts: scripts,
+  	files: files,
   	author: author,
   	license: license,
   	keywords: keywords,
-  	files: files,
   	devDependencies: devDependencies
   };
 
