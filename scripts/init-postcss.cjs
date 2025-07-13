@@ -28,7 +28,7 @@ module.exports = {
 `;
 
   fs.writeFileSync(configPath, content);
-  console.log('[ulib] ✅ postcss.config.cjs created in project root.');
+  console.log('[uxlib] ✅ postcss.config.cjs created in project root.');
 } else {
-  console.log('[ulib] ⚠️ postcss.config.cjs already exists. Skipped creation.');
+  console.log('[uxlib] ⚠️ postcss.config.cjs already exists. Skipped creation.');
 }

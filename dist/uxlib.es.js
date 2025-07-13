@@ -1,6 +1,8 @@
 /*!
- * ulib v1.0.0
+ * Library Name: UXLIB
+ * Version: 1.0.0
  * Author: Subrata Porel
+ * Github: https://github.com/subratapeid/uxlib
  */
 
 async function checkForAuthorSignature() {
@@ -246,4 +248,4 @@ function copyToClipboard(input = "Nothing to copy!", options = {}) {
 init(); // auto-run on initiate
 
 export { copyToClipboard, formatDate, getQueryParams, isArray, isEmpty, isMobile, isObject, isOnline, isString, randomColor, randomId, showToast, timeAgo, updateQueryParam };
-//# sourceMappingURL=ulib.es.js.map
+//# sourceMappingURL=uxlib.es.js.map

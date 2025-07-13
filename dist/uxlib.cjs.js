@@ -1,6 +1,8 @@
 /*!
- * ulib v1.0.0
+ * Library Name: UXLIB
+ * Version: 1.0.0
  * Author: Subrata Porel
+ * Github: https://github.com/subratapeid/uxlib
  */
 
 'use strict';
@@ -263,4 +265,4 @@ exports.randomId = randomId;
 exports.showToast = showToast;
 exports.timeAgo = timeAgo;
 exports.updateQueryParam = updateQueryParam;
-//# sourceMappingURL=ulib.cjs.js.map
+//# sourceMappingURL=uxlib.cjs.js.map

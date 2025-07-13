@@ -5,8 +5,10 @@ import fs from 'fs';
 const pkg = JSON.parse(fs.readFileSync('./package.json', 'utf-8'));
 
 const banner = `/*!
- * ulib v${pkg.version}
+ * Library Name: UXLIB
+ * Version: ${pkg.version}
  * Author: ${pkg.author}
+ * Github: ${pkg.github}
  */
 `;
 
@@ -14,7 +16,7 @@ export default [
   {
     input: "src/index.js",
     output: {
-      file: "dist/ulib.es.js",
+      file: "dist/uxlib.es.js",
       format: "es",
       sourcemap: true,
       exports: "named",
@@ -25,7 +27,7 @@ export default [
   {
     input: "src/index.js",
     output: {
-      file: "dist/ulib.cjs.js",
+      file: "dist/uxlib.cjs.js",
       format: "cjs",
       sourcemap: true,
       exports: "named",
@@ -36,9 +38,9 @@ export default [
   {
     input: "src/browser.js",
     output: {
-      file: "dist/ulib.js",
+      file: "dist/uxlib.js",
       format: "umd",
-      name: "ulib",
+      name: "uxlib",
       sourcemap: true,
       exports: "named",
       banner
@@ -48,9 +50,9 @@ export default [
   {
     input: "src/browser.js",
     output: {
-      file: "dist/ulib.min.js",
+      file: "dist/uxlib.min.js",
       format: "umd",
-      name: "ulib",
+      name: "uxlib",
       sourcemap: true,
       exports: "named",
       banner
