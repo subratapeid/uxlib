@@ -1,12 +1,12 @@
-function formatDate(date) {
-    console.log("format date function");
-    
-    return new Date(date).toLocaleDateString("en-IN");
-  }
+export function formatDate(date) {
+      console.log("format date function");
 
-  function timeAgo(date) {
+  return new Date(date).toLocaleDateString("en-IN");
+}
+
+export function timeAgo(date) {
     console.log("Time Ago function");
-    
+
   const seconds = Math.floor((new Date() - new Date(date)) / 1000);
   const intervals = {
     year: 31536000, month: 2592000, week: 604800,

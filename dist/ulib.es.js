@@ -163,6 +163,27 @@ function init() {
 
 }
 
+function formatDate(date) {
+      console.log("format date function");
+
+  return new Date(date).toLocaleDateString("en-IN");
+}
+
+function timeAgo(date) {
+    console.log("Time Ago function");
+
+  const seconds = Math.floor((new Date() - new Date(date)) / 1000);
+  const intervals = {
+    year: 31536000, month: 2592000, week: 604800,
+    day: 86400, hour: 3600, minute: 60, second: 1
+  };
+  for (let [unit, value] of Object.entries(intervals)) {
+    const count = Math.floor(seconds / value);
+    if (count >= 1) return `${count} ${unit}${count > 1 ? 's' : ''} ago`;
+  }
+  return 'just now';
+}
+
 function isObject(val) {
   return val && typeof val === 'object' && !Array.isArray(val);
 }
@@ -291,5 +312,5 @@ function copyToClipboard(input = "Nothing to copy!", options = {}) {
 //src/index.js
 init(); // auto-run on initiate
 
-export { copyToClipboard, getQueryParams, isArray, isEmpty, isMobile, isObject, isOnline, isString, randomColor, randomId, showToast, updateQueryParam };
+export { copyToClipboard, formatDate, getQueryParams, isArray, isEmpty, isMobile, isObject, isOnline, isString, randomColor, randomId, showToast, timeAgo, updateQueryParam };
 //# sourceMappingURL=ulib.es.js.map

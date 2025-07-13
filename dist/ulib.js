@@ -4,6 +4,27 @@
   (global = typeof globalThis !== 'undefined' ? globalThis : global || self, factory(global.ulib = {}));
 })(this, (function (exports) { 'use strict';
 
+  function formatDate(date) {
+        console.log("format date function");
+
+    return new Date(date).toLocaleDateString("en-IN");
+  }
+
+  function timeAgo(date) {
+      console.log("Time Ago function");
+
+    const seconds = Math.floor((new Date() - new Date(date)) / 1000);
+    const intervals = {
+      year: 31536000, month: 2592000, week: 604800,
+      day: 86400, hour: 3600, minute: 60, second: 1
+    };
+    for (let [unit, value] of Object.entries(intervals)) {
+      const count = Math.floor(seconds / value);
+      if (count >= 1) return `${count} ${unit}${count > 1 ? 's' : ''} ago`;
+    }
+    return 'just now';
+  }
+
   function isObject(val) {
     return val && typeof val === 'object' && !Array.isArray(val);
   }
@@ -61,6 +82,8 @@
 
   var utils = /*#__PURE__*/Object.freeze({
     __proto__: null,
+    formatDate: formatDate,
+    timeAgo: timeAgo,
     isObject: isObject,
     isArray: isArray,
     isString: isString,
