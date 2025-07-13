@@ -1,7 +1,6 @@
 /*!
  * Library Name: UXLIB
-* added to public
- * Version: 1.0.0
+ * Version: 1.0.1
  * Author: Subrata Porel
  * Github: https://github.com/subratapeid/uxlib
  */
