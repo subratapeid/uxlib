@@ -99,12 +99,12 @@ var scripts = {
 	"build:js": "rollup -c",
 	"build:css": "cross-env MINIFY=false postcss src/css/index.css -o dist/ulib.css && cross-env MINIFY=true postcss src/css/index.css -o dist/ulib.min.css",
 	build: "npm run build:js && npm run build:css",
-	postinstall: "node scripts/init-postcss.js"
+	postinstall: "node scripts/init-postcss.cjs"
 };
 var files = [
 	"dist",
 	"postcss-preset",
-	"scripts/init-postcss.js"
+	"scripts"
 ];
 var author = "Subrata Porel";
 var license = "MIT";
