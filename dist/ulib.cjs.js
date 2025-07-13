@@ -83,19 +83,26 @@ function devLog(...args) {
 var name = "ulib";
 var version = "1.0.0";
 var description = "A clean and powerful utility library by Subrata";
-var sideEffects = false;
+var sideEffects = [
+	"./dist/ulib.css"
+];
 var main = "dist/ulib.cjs.js";
 var module$1 = "dist/ulib.es.js";
 var unpkg = "dist/ulib.min.js";
 var browser = "dist/ulib.js";
-var exports$1 = {
-	"import": "./dist/ulib.es.js",
-	require: "./dist/ulib.cjs.js",
-	"default": "./dist/ulib.js"
-};
 var type = "module";
+var exports$1 = {
+	".": {
+		"import": "./dist/ulib.es.js",
+		require: "./dist/ulib.cjs.js",
+		"default": "./dist/ulib.js"
+	},
+	"./css": "./dist/ulib.css"
+};
 var scripts = {
-	build: "rollup -c"
+	"build:js": "rollup -c",
+	"build:css": "cross-env MINIFY=false postcss src/css/index.css -o dist/ulib.css && cross-env MINIFY=true postcss src/css/index.css -o dist/ulib.min.css",
+	build: "npm run build:js && npm run build:css"
 };
 var author = "Subrata Porel";
 var license = "MIT";
@@ -109,10 +116,15 @@ var keywords = [
 ];
 var files = [
 	"dist",
-	"src"
+	"css.js"
 ];
 var devDependencies = {
 	"@rollup/plugin-json": "^6.1.0",
+	"cross-env": "^7.0.3",
+	cssnano: "^7.0.7",
+	postcss: "^8.5.6",
+	"postcss-cli": "^11.0.1",
+	"postcss-import": "^16.1.1",
 	rollup: "^2.79.2",
 	"rollup-plugin-terser": "^7.0.2"
 };
@@ -125,8 +137,8 @@ var pkg = {
 	module: module$1,
 	unpkg: unpkg,
 	browser: browser,
-	exports: exports$1,
 	type: type,
+	exports: exports$1,
 	scripts: scripts,
 	author: author,
 	license: license,
@@ -134,26 +146,6 @@ var pkg = {
 	files: files,
 	devDependencies: devDependencies
 };
-
-const ulibCSS = `
-  .btn {
-    background: royalblue;
-    color: white;
-    padding: 0.5rem 1rem;
-    border-radius: 0.25rem;
-    font-weight: bold;
-    border: none;
-    cursor: pointer;
-  }
-
-  .text-center {
-    text-align: center;
-  }
-
-  .m-1 {
-    margin: 0.25rem;
-  }
-`;
 
 function init() {
   if (typeof window !== 'undefined') {
@@ -165,15 +157,6 @@ function init() {
     window.__ulib_signature__ = true;
     // 🔒 Show log only in dev mode or if user enables debug manually
     devLog(`✅ ulib initialized Version: ${pkg.version}`);
-  }
-
-  // Inject CSS once
-  if (!document.getElementById("ulib-style")) {
-    const style = document.createElement("style");
-    style.id = "ulib-style";
-    style.textContent = ulibCSS;
-    document.head.appendChild(style);
-    console.log("%cULib initialized with styles", "color: green;");
   }
 
 }

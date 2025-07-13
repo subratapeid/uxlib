@@ -2,19 +2,26 @@
   "name": "ulib",
   "version": "1.0.0",
   "description": "A clean and powerful utility library by Subrata",
-  "sideEffects": false,
+  "sideEffects": [
+    "./dist/ulib.css"
+  ],
   "main": "dist/ulib.cjs.js",
   "module": "dist/ulib.es.js",
   "unpkg": "dist/ulib.min.js",
   "browser": "dist/ulib.js",
-  "exports": {
-    "import": "./dist/ulib.es.js",
-    "require": "./dist/ulib.cjs.js",
-    "default": "./dist/ulib.js"
-  },
   "type": "module",
+  "exports": {
+    ".": {
+      "import": "./dist/ulib.es.js",
+      "require": "./dist/ulib.cjs.js",
+      "default": "./dist/ulib.js"
+    },
+    "./css": "./dist/ulib.css"
+  },
   "scripts": {
-    "build": "rollup -c"
+    "build:js": "rollup -c",
+    "build:css": "cross-env MINIFY=false postcss src/css/index.css -o dist/ulib.css && cross-env MINIFY=true postcss src/css/index.css -o dist/ulib.min.css",
+    "build": "npm run build:js && npm run build:css"
   },
   "author": "Subrata Porel",
   "license": "MIT",
@@ -28,10 +35,15 @@
   ],
   "files": [
     "dist",
-    "src"
+    "css.js"
   ],
   "devDependencies": {
     "@rollup/plugin-json": "^6.1.0",
+    "cross-env": "^7.0.3",
+    "cssnano": "^7.0.7",
+    "postcss": "^8.5.6",
+    "postcss-cli": "^11.0.1",
+    "postcss-import": "^16.1.1",
     "rollup": "^2.79.2",
     "rollup-plugin-terser": "^7.0.2"
   }
