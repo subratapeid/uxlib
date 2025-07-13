@@ -1,6 +1,6 @@
 {
   "name": "uxlib",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "A clean and powerful utility library by Subrata",
   "sideEffects": false,
   "main": "dist/uxlib.cjs.js",
