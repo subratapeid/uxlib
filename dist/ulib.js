@@ -261,8 +261,7 @@
   		require: "./dist/ulib.cjs.js",
   		"default": "./dist/ulib.js"
   	},
-  	"./css": "./dist/ulib.css",
-  	"./postcss-preset": "./postcss-preset/index.cjs"
+  	"./css": "./dist/ulib.css"
   };
   var scripts = {
   	"build:js": "rollup -c",
