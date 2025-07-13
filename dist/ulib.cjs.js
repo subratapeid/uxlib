@@ -102,13 +102,13 @@ var exports$1 = {
 var scripts = {
 	"build:js": "rollup -c",
 	"build:css": "cross-env MINIFY=false postcss src/css/index.css -o dist/ulib.css && cross-env MINIFY=true postcss src/css/index.css -o dist/ulib.min.css",
-	build: "npm run build:js && npm run build:css"
+	build: "npm run build:js && npm run build:css",
+	postinstall: "node scripts/init-postcss.js"
 };
 var files = [
 	"dist",
-	"css.js",
-	"ulib-css-build.js",
-	"postcss.config.cjs"
+	"postcss-preset",
+	"scripts/init-postcss.js"
 ];
 var author = "Subrata Porel";
 var license = "MIT";
@@ -121,6 +121,7 @@ var keywords = [
 	"helpers"
 ];
 var devDependencies = {
+	"@fullhuman/postcss-purgecss": "^7.0.2",
 	"@rollup/plugin-json": "^6.1.0",
 	"cross-env": "^7.0.3",
 	cssnano: "^7.0.7",
