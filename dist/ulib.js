@@ -263,7 +263,8 @@
   		require: "./dist/ulib.cjs.js",
   		"default": "./dist/ulib.js"
   	},
-  	"./css": "./dist/ulib.css"
+  	"./css": "./dist/ulib.css",
+  	"./postcss-preset": "./postcss-preset/index.cjs"
   };
   var scripts = {
   	"build:js": "rollup -c",
@@ -273,7 +274,6 @@
   };
   var files = [
   	"dist",
-  	"postcss-preset",
   	"scripts"
   ];
   var author = "Subrata Porel";
@@ -287,7 +287,6 @@
   	"helpers"
   ];
   var devDependencies = {
-  	"@fullhuman/postcss-purgecss": "^7.0.2",
   	"@rollup/plugin-json": "^6.1.0",
   	"cross-env": "^7.0.3",
   	cssnano: "^7.0.7",
@@ -296,6 +295,18 @@
   	"postcss-import": "^16.1.1",
   	rollup: "^2.79.2",
   	"rollup-plugin-terser": "^7.0.2"
+  };
+  var peerDependencies = {
+  	"@fullhuman/postcss-purgecss": "^7.0.2",
+  	postcss: "^8.5.6",
+  	"postcss-import": "^16.1.1",
+  	cssnano: "^7.0.7"
+  };
+  var optionalDependencies = {
+  	"@fullhuman/postcss-purgecss": "^7.0.2",
+  	postcss: "^8.5.6",
+  	"postcss-import": "^16.1.1",
+  	cssnano: "^7.0.7"
   };
   var pkg = {
   	name: name,
@@ -313,7 +324,9 @@
   	author: author,
   	license: license,
   	keywords: keywords,
-  	devDependencies: devDependencies
+  	devDependencies: devDependencies,
+  	peerDependencies: peerDependencies,
+  	optionalDependencies: optionalDependencies
   };
 
   function init() {

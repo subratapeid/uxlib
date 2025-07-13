@@ -16,7 +16,8 @@
       "require": "./dist/ulib.cjs.js",
       "default": "./dist/ulib.js"
     },
-    "./css": "./dist/ulib.css"
+    "./css": "./dist/ulib.css",
+    "./postcss-preset": "./postcss-preset/index.cjs"
   },
   "scripts": {
     "build:js": "rollup -c",
@@ -26,7 +27,6 @@
   },
   "files": [
     "dist",
-    "postcss-preset",
     "scripts"
   ],
   "author": "Subrata Porel",
@@ -51,10 +51,14 @@
   },
   "peerDependencies": {
     "@fullhuman/postcss-purgecss": "^7.0.2",
-    "postcss": "^8.5.6"
+    "postcss": "^8.5.6",
+    "postcss-import": "^16.1.1",
+    "cssnano": "^7.0.7"
   },
   "optionalDependencies": {
     "@fullhuman/postcss-purgecss": "^7.0.2",
-    "postcss": "^8.5.6"
+    "postcss": "^8.5.6",
+    "postcss-import": "^16.1.1",
+    "cssnano": "^7.0.7"
   }
 }

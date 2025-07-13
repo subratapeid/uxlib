@@ -20,6 +20,14 @@
   background-color: royalblue;
   color: white;
 }
+.ulibBtn1{
+  background-color: rgb(101, 76, 37);
+  color: white;
+}
+.ulibBtn2{
+  background-color: rgb(225, 65, 164);
+  color: white;
+}
 /* === Cards === */
 .card {
   border: 1px solid #e5e7eb;
