@@ -79,3 +79,22 @@ MIT License © [Subrata Porel](https://github.com/subratapeid)
 Found a bug? Have a feature request?  
 Open an [issue](https://github.com/subratapeid/uxlib/issues) or contribute via pull request.  
 ⭐ Star the repo to support this project!
+
+## 📚 Documentation
+
+- 🧰 Core
+  - [Introduction](docs/core/introduction.md)
+  - [Installation](docs/core/installation.md)
+
+- 🧪 API
+  - [copyToClipboard()](docs/api/copyToClipboard.md)
+  - [callApi()](docs/api/callApi.md)
+  - [isOnline()](docs/api/isOnline.md)
+
+- 🧠 Guides
+  - [React Integration](docs/guides/using-with-react.md)
+  - [HTML/Vanilla JS](docs/guides/integrating-in-html.md)
+
+- 📦 Versions
+  - [Changelog v1.0.0](docs/changelog/v1.0.0.md)
+  - [Changelog v2.0.0](docs/changelog/v2.0.0.md)
