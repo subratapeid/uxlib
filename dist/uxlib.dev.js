@@ -365,121 +365,96 @@
   }
 
   function copyToClipboard(input, options = {}) {
-    return new Promise((resolve, reject) => {
-      const {
-        onStart = () => {},
-        onSuccess = () => {},
-        onFail = () => {},
-        onEnd = () => {},
-        showToast = false,
-        showAlert = false,
-        highlightArea = null,
-        changeButtonText = false,
-        duration = 3000
-      } = options;
+    const {
+      onStart = () => { },
+      onSuccess = () => { },
+      onFail = () => { },
+      onEnd = () => { },
+      showToast = false,
+      showAlert = false,
+      highlightArea = null,
+      changeButtonText = false,
+      duration = 3000
+    } = options;
 
-      const { type, value: text, element: targetElement } = resolveInputData(input);
+    const { type, value: text, element: targetElement } = resolveInputData(input);
 
-      if (!text || type === "error") {
-        devLog("❌ Failed to resolve input for copy:", text);
-        onFail(text);
-        onEnd();
-        reject({
-          success: false,
-          message: "Failed to resolve input",
-          error: text
+    if (!text || type === "error") {
+      devLog("❌ Failed to resolve input for copy:", text);
+      onFail(text);
+      onEnd();
+      return;
+    }
+
+    try {
+      onStart(text, targetElement);
+      devLog("📍 onStart triggered.");
+    } catch (err) {
+      devLog("⚠️ Error in onStart:", err);
+    }
+
+    const doCopy = () => {
+      if (navigator.clipboard && window.isSecureContext) {
+        return navigator.clipboard.writeText(text);
+      } else {
+        return new Promise((resolve, reject) => {
+          try {
+            const textarea = document.createElement("textarea");
+            textarea.value = text;
+            textarea.style.position = "fixed";
+            textarea.style.opacity = "0";
+            document.body.appendChild(textarea);
+            textarea.select();
+            const success = document.execCommand("copy");
+            document.body.removeChild(textarea);
+            success ? resolve() : reject("execCommand failed");
+          } catch (err) {
+            reject(err);
+          }
         });
-        return;
       }
+    };
 
-      try {
-        onStart(text, targetElement);
-        devLog("📍 onStart triggered.");
-      } catch (err) {
-        devLog("⚠️ Error in onStart:", err);
-      }
+    doCopy()
+      .then(() => {
+        devLog("✅ Copy successful:", text);
+        onSuccess(text, targetElement);
 
-      const doCopy = () => {
-        if (navigator.clipboard && window.isSecureContext) {
-          return navigator.clipboard.writeText(text);
-        } else {
-          return new Promise((resolveInner, rejectInner) => {
-            try {
-              const textarea = document.createElement("textarea");
-              textarea.value = text;
-              textarea.style.position = "fixed";
-              textarea.style.opacity = "0";
-              document.body.appendChild(textarea);
-              textarea.select();
-              const success = document.execCommand("copy");
-              document.body.removeChild(textarea);
-              success ? resolveInner() : rejectInner("execCommand failed");
-            } catch (err) {
-              rejectInner(err);
-            }
-          });
-        }
-      };
-
-      doCopy()
-        .then(() => {
-          devLog("✅ Copy successful:", text);
-          onSuccess(text, targetElement);
-
-          // ✅ Toast
-          if (showToast) {
-            const toastConfig =
-              typeof showToast === "boolean"
-                ? { message: "✅ Copied to clipboard!" }
-                : typeof showToast === "string"
+        // ✅ Toaster Call
+        if (showToast) {
+          const toastConfig =
+            typeof showToast === "boolean"
+              ? { message: "✅ Data Copied to clipboard!" }
+              : typeof showToast === "string"
                 ? { message: showToast }
                 : {
-                    message: showToast.message || "✅ Copied to clipboard!",
-                    duration: showToast.duration,
-                    position: showToast.position,
-                    preset: showToast.preset
-                  };
+                  message: showToast.message || "✅ Data Copied to clipboard!",
+                  duration: showToast.duration,
+                  position: showToast.position,
+                  preset: showToast.preset
+                };
 
-            toaster(toastConfig);
-          }
+          toaster(toastConfig);
+        }
 
-          // ✅ Alert
-          if (showAlert) {
-            const msg = typeof showAlert === "string" ? showAlert : "Copied!";
-            alert(msg);
-            devLog("📣 Alert shown:", msg);
-          }
+        if (showAlert) {
+          const message = typeof showAlert === "string" ? showAlert : "Copied!";
+          devLog("Showing alert:", message);
+          alert(message);
+        }
 
-          // ✅ Highlight
-          highlightHelper(highlightArea, duration);
-
-          // ✅ Button Text Change
-          buttonTextHelper(changeButtonText, duration);
-
-          onEnd(text, targetElement);
-
-          resolve({
-            success: true,
-            message: "Copied successfully",
-            text,
-            element: targetElement
-          });
-        })
-        .catch((err) => {
-          devLog("❌ Copy failed:", err);
-          onFail(err, targetElement);
-          onEnd(text, targetElement);
-          reject({
-            success: false,
-            message: "Copy failed",
-            error: err,
-            text,
-            element: targetElement
-          });
-        });
-    });
+        highlightHelper(highlightArea, duration);
+        buttonTextHelper(changeButtonText, duration);
+      })
+      .catch((err) => {
+        devLog("❌ Copy failed:", err);
+        onFail(err, targetElement);
+      })
+      .finally(() => {
+        devLog("🏁 Copy process finished");
+        onEnd(text, targetElement);
+      });
   }
-
 
   // Helper functions ##### highlightHelper//
 
@@ -584,41 +559,39 @@
     timeout = 10000,
     showToast = false,
     showLoader = false,
-
     // Lifecycle Hooks
-    onStart = () => {},
-    onSuccess = () => {},
-    onError = () => {},
-    onEnd = () => {}
-  } = {}) {
+    onStart = null,
+    onSuccess = null,
+    onError = null,
+    onEnd = null,
+  }) {
     const fullUrl = baseURL + url;
     const controller = new AbortController();
     const timer = setTimeout(() => controller.abort(), timeout);
 
-    // 🚦 Final headers
+    // 🔁 Trigger onStart + Loader Start
+    try {
+      if (showLoader) devLog("🔄 Loader Start");
+      if (typeof onStart === "function") onStart();
+    } catch (e) {
+      devLog("⚠ onStart error:", e);
+    }
+
     const finalHeaders = {
       "Content-Type": "application/json",
-      ...headers
+      ...headers,
     };
 
     if (token) {
       finalHeaders["Authorization"] = `Bearer ${token}`;
     }
 
-    // 🔁 Start Phase
-    try {
-      if (showLoader) devLog("🔄 Loader Start");
-      onStart();
-    } catch (err) {
-      devLog("⚠️ onStart error:", err);
-    }
-
-    // 📡 Request Log
-    devLog("📡 API REQUEST", {
+    // 🔎 Log Request Info
+    devLog("📡 API CALL:", {
       method,
       url: fullUrl,
       headers: finalHeaders,
-      body: data
+      body: data,
     });
 
     try {
@@ -626,68 +599,56 @@
         method,
         headers: finalHeaders,
         body: method !== "GET" && data ? JSON.stringify(data) : null,
-        signal: controller.signal
+        signal: controller.signal,
       });
 
       clearTimeout(timer);
 
       const contentType = response.headers.get("content-type");
       const isJson = contentType && contentType.includes("application/json");
-      const responseData = isJson ? await response.json() : await response.text();
+      const result = isJson ? await response.json() : await response.text();
 
-      devLog("✅ API RESPONSE:", responseData);
-
-      const result = {
-        success: response.ok,
-        status: response.status,
-        message: response.statusText,
-        data: responseData
-      };
+      devLog("✅ API RESPONSE:", result);
 
       if (!response.ok) {
-        handleError(result, showToast);
-        onError(responseData, response.status);
-        throw result; // reject with result object
+        handleError(result, response.status, showToast);
+        if (typeof onError === "function") onError(result, response.status);
+        throw new Error(result?.message || `Error ${response.status}`);
       }
 
-      onSuccess(responseData);
-      return result; // ✅ resolved with full result
+      if (typeof onSuccess === "function") onSuccess(result);
+      return result;
     } catch (err) {
       clearTimeout(timer);
+      handleError(err, 0, showToast);
 
-      const errorResult = {
-        success: false,
-        status: err.status || 0,
-        message: err.message || "Something went wrong!",
-        error: err,
-        data: err?.data || null
-      };
+      devLog("❌ API ERROR:", err);
 
-      handleError(errorResult, showToast);
-      onError(errorResult);
-      throw errorResult;
+      if (typeof onError === "function") onError(err, 0);
+      throw err;
     } finally {
       try {
-        onEnd();
+        if (typeof onEnd === "function") onEnd();
       } catch (e) {
-        devLog("⚠️ onEnd hook error:", e);
+        devLog("⚠ onEnd hook error:", e);
       }
 
       if (showLoader) devLog("✅ Loader End");
     }
   }
 
-
-  function handleError(errorObj, showToast) {
-    const message = errorObj?.message || "Something went wrong!";
+  function handleError(error, status, showToast) {
+    const message = typeof error === "string"
+      ? error
+      : error?.message || "Something went wrong!";
 
     if (typeof showToast === "function") {
-      showToast({ message, status: errorObj?.status || 0 });
+      showToast({ message, status });
     } else if (showToast === true && typeof window !== "undefined" && window.showToast) {
       window.showToast(message);
     }
 
-    devLog("❗ ERROR HANDLED:", message);
+    devLog("❗ ERROR HANDLER:", message);
   }
 
   //src/index.js
