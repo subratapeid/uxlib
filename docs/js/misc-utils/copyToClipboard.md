@@ -3,8 +3,28 @@
 The `copyToClipboard()` function copies text to the user's clipboard with optional UX enhancements like toast, alert, highlight, and dynamic button text. Fully Promise-based and supports lifecycle hooks.
 
 ---
+<<<<<<< HEAD
+## ✅ Browser CDN Usage
+
+```html
+<script src="https://cdn.jsdelivr.net/npm/uxlib/dist/uxlib.js" name="ux"></script>
+<!-- instade uxlib you can use your prefered name using a name attribute (eg: <script src="cdnLink" name="ux"></script>) -->
+<script>
+uxlib.copyToClipboard("Hello World!", {
+  showToast: true,
+  onSuccess: () => console.log("Copied!"),
+});
+<script>
+
+```
+
+---
+
+## ✅ Node Module Usage
+=======
 
 ## ✅ Usage
+>>>>>>> 05ea7e70372a0b939cdcfe5c9996bb16b30cf31c
 
 ```js
 import { copyToClipboard } from "uxlib";
@@ -70,11 +90,20 @@ Returns a `Promise` that resolves or rejects with an object:
 
 ### 1. Simple copy
 ```js
+<<<<<<< HEAD
+// use data directly
+=======
+>>>>>>> 05ea7e70372a0b939cdcfe5c9996bb16b30cf31c
 copyToClipboard("Hello");
 ```
 
 ### 2. Copy from input field
 ```js
+<<<<<<< HEAD
+
+// use element id by # symbol
+=======
+>>>>>>> 05ea7e70372a0b939cdcfe5c9996bb16b30cf31c
 copyToClipboard("#myInput", {
   showToast: "Copied input value!"
 });
@@ -89,6 +118,46 @@ copyToClipboard("Copy Me", {
   onEnd: () => console.log("Done."),
 });
 ```
+<<<<<<< HEAD
+---
+
+## ✨ UX Enhancements
+
+### ✅ Show Toast
+```js
+showToast: true
+showToast: "Copied!"
+showToast: {
+  message: "Copied successfully!",
+  duration: 3000,
+  position: "top-right",
+  preset: 2
+}
+```
+
+### ✅ Show Alert
+```js
+showAlert: true
+showAlert: "Copied this item!"
+```
+
+### ✅ Highlight a Section
+```js
+highlightArea: "#targetBox"
+
+highlightArea: {
+  selector: "#targetBox",
+  duration: 1500,
+  setClass: "highlight-outline"
+}
+```
+
+### ✅ Change Button Text
+```js
+changeButtonText: true // Auto detect from event target
+
+changeButtonText: "Copied!" // Temporarily show text
+=======
 
 ---
 
@@ -120,6 +189,7 @@ highlightArea: {
 ### ✅ Button Text Feedback
 ```js
 changeButtonText: true
+>>>>>>> 05ea7e70372a0b939cdcfe5c9996bb16b30cf31c
 
 changeButtonText: {
   target: "#copyBtn",
@@ -127,6 +197,11 @@ changeButtonText: {
   duration: 2000
 }
 ```
+<<<<<<< HEAD
+- 📌 [Back to UXLIB-JS Home](../README.md)
+- 📌 [Go to UXLIB-CSS Docs](../css/README.md)
+---
+=======
 
 ---
 
@@ -148,3 +223,4 @@ changeButtonText: {
 ## 🔚 Final Notes
 
 Fully compatible with modern browsers. Fallback supported using `execCommand` if clipboard API is unavailable.
+>>>>>>> 05ea7e70372a0b939cdcfe5c9996bb16b30cf31c

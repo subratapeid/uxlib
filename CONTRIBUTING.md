@@ -14,7 +14,7 @@ Your contributions help make this library better and more useful for everyone.
 - 🔧 **Optimize or refactor existing code**
 
 ---
-- 🏠︎ [Go to Project Home](https://github.com/subratapeid/UXLIB)
+- 🏠︎ [Go to Project Home](./)
 
 
 ## 📂 Project Structure
@@ -36,7 +36,7 @@ uxlib/
 1. **Fork the repository** on GitHub  
 2. **Clone your fork**
    ```bash
-   git clone https://github.com/your-username/uxlib.git
+   git clone https://github.com/subratapeid/uxlib.git
    cd uxlib
    ```
 
@@ -84,4 +84,4 @@ Feel free to open an issue or message the maintainer on GitHub:
 
 Happy coding! 🙌
 
-- 🏠︎ [Go to Project Home](https://github.com/subratapeid/UXLIB)
+- 🏠︎ [Go to Project Home](./)
