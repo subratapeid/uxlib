@@ -16,18 +16,8 @@
     },
     "./css": "./dist/uxlib.css"
   },
-  "scripts": {
-    "build:js": "rollup -c",
-    "build:css": "cross-env MINIFY=false postcss src/style.css -o dist/uxlib.css && cross-env MINIFY=true postcss src/style.css -o dist/uxlib.min.css",
-    "build": "npm run build:js && npm run build:css",
-    "dev:js": "rollup -c rollup.dev.config.js --watch",
-    "dev:css": "cross-env MINIFY=false postcss src/style.css -o dist/uxlib.css",
-    "dev": "npm run dev:js && npm run dev:css",
-    "postinstall": "node scripts/init-postcss.cjs"
-  },
   "files": [
     "dist",
-    "scripts/init-postcss.cjs",
     "README.md",
     "LICENSE"
   ],
@@ -44,23 +34,7 @@
     "subrata",
     "helpers"
   ],
-  "devDependencies": {
-    "@rollup/plugin-json": "^6.1.0",
-    "@rollup/plugin-replace": "^6.0.2",
-    "cross-env": "^7.0.3",
-    "cssnano": "^7.0.7",
-    "postcss": "^8.5.6",
-    "postcss-banner": "^4.0.1",
-    "postcss-cli": "^11.0.1",
-    "postcss-import": "^16.1.1",
-    "rollup": "^2.79.2",
-    "rollup-plugin-obfuscator": "^1.1.0",
-    "rollup-plugin-terser": "^7.0.2"
-  },
   "dependencies": {
-    "@fullhuman/postcss-purgecss": "^7.0.2",
-    "cssnano": "^7.0.7",
-    "postcss": "^8.5.6",
     "postcss-import": "^16.1.1"
   }
 }
