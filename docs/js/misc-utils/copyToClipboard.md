@@ -3,7 +3,6 @@
 The `copyToClipboard()` function copies text to the user's clipboard with optional UX enhancements like toast, alert, highlight, and dynamic button text. Fully Promise-based and supports lifecycle hooks.
 
 ---
-<<<<<<< HEAD
 ## ✅ Browser CDN Usage
 
 ```html
@@ -21,10 +20,6 @@ uxlib.copyToClipboard("Hello World!", {
 ---
 
 ## ✅ Node Module Usage
-=======
-
-## ✅ Usage
->>>>>>> 05ea7e70372a0b939cdcfe5c9996bb16b30cf31c
 
 ```js
 import { copyToClipboard } from "uxlib";
@@ -90,20 +85,14 @@ Returns a `Promise` that resolves or rejects with an object:
 
 ### 1. Simple copy
 ```js
-<<<<<<< HEAD
 // use data directly
-=======
->>>>>>> 05ea7e70372a0b939cdcfe5c9996bb16b30cf31c
 copyToClipboard("Hello");
 ```
 
 ### 2. Copy from input field
 ```js
-<<<<<<< HEAD
 
 // use element id by # symbol
-=======
->>>>>>> 05ea7e70372a0b939cdcfe5c9996bb16b30cf31c
 copyToClipboard("#myInput", {
   showToast: "Copied input value!"
 });
@@ -118,7 +107,6 @@ copyToClipboard("Copy Me", {
   onEnd: () => console.log("Done."),
 });
 ```
-<<<<<<< HEAD
 ---
 
 ## ✨ UX Enhancements
@@ -157,39 +145,6 @@ highlightArea: {
 changeButtonText: true // Auto detect from event target
 
 changeButtonText: "Copied!" // Temporarily show text
-=======
-
----
-
-## ✨ Additional Features
-
-### ✅ Toast Support
-```js
-showToast: true
-showToast: "Copied!" 
-showToast: {
-  message: "Copied!",
-  duration: 3000,
-  position: "top-right",
-  preset: 1
-}
-```
-
-### ✅ Highlight a section
-```js
-highlightArea: "#targetDiv"
-
-highlightArea: {
-  selector: "#targetDiv",
-  duration: 1500,
-  setClass: "yourClassName"
-}
-```
-
-### ✅ Button Text Feedback
-```js
-changeButtonText: true
->>>>>>> 05ea7e70372a0b939cdcfe5c9996bb16b30cf31c
 
 changeButtonText: {
   target: "#copyBtn",
@@ -197,30 +152,6 @@ changeButtonText: {
   duration: 2000
 }
 ```
-<<<<<<< HEAD
 - 📌 [Back to UXLIB-JS Home](../README.md)
 - 📌 [Go to UXLIB-CSS Docs](../css/README.md)
 ---
-=======
-
----
-
-## 📎 Dependencies
-
-- `resolveInputData()` – Resolves value and element
-- `toaster()` – Renders toast messages
-- `devLog()` – Internal logger
-
----
-
-## 🛠 Internal Helpers
-
-- `highlightHelper()` – Adds dashed outline animation
-- `buttonTextHelper()` – Temporarily changes button text
-
----
-
-## 🔚 Final Notes
-
-Fully compatible with modern browsers. Fallback supported using `execCommand` if clipboard API is unavailable.
->>>>>>> 05ea7e70372a0b939cdcfe5c9996bb16b30cf31c
