@@ -5,8 +5,26 @@
  * Github: https://github.com/subratapeid/uxlib
  */
 
-// dev.helper.js
+const UXConfig = {
+    logDisabled: false
+};
 
+function withNoLog(fn) {
+    return (...args) => {
+        const previous = UXConfig.logDisabled; // save old state
+        UXConfig.logDisabled = true;           // disable logging
+
+        try {
+            const result = fn(...args);
+            return result;
+        } finally {
+            // restore immediately after function returns
+            UXConfig.logDisabled = previous;
+        }
+    };
+}
+
+// dev.helper.js
 // from query param (?debug=true)
 const isDebugFromQuery = (() => {
   if (typeof window !== 'undefined') {
@@ -107,6 +125,7 @@ function shouldLog(args) {
 }
 
 function devLog(...args) {
+  if (UXConfig.logDisabled) return;
   setTimeout(() => {
     if (!isDev() || (typeof shouldLog === 'function' && !shouldLog(args))) return;
 
@@ -134,6 +153,8 @@ function devLog(...args) {
 }
 
 function devWarn(...args) {
+  if (UXConfig.logDisabled) return;
+
   setTimeout(() => {
     if (isDev() && shouldLog(args)) {
       console.warn('[UXLIB]', ...args);
@@ -142,6 +163,7 @@ function devWarn(...args) {
 }
 
 function devError(...args) {
+  if (UXConfig.logDisabled) return;
   setTimeout(() => {
     if (isDev() && shouldLog(args)) {
       console.error('[UXLIB]', ...args);
@@ -157,7 +179,9 @@ function init() {
       signature();
     }
     window.__ulib_signature__ = true;
-    devLog(`✅ uxlib initialized Version: ${"1.0.4"}`);
+    const version = "1.0.4" ;
+    devLog(`✅ uxlib initialized Version: ${version}`);
+
   }
 }
 async function signature() {
@@ -1008,7 +1032,80 @@ const getData = new Proxy({}, {
   }
 });
 
-// Auto init
+function onEvent(selector, eventType, callback) {
+  const elements = withNoLog(getElement)(selector);
+  if (!elements) {
+    devWarn(`No elements found for selector: "${selector}"`);
+    return;
+  }
+
+  const addListener = (el) => {
+    const wrappedCallback = (e) => {
+      devLog(
+        `📌 ${eventType} event on:`,
+        el.cloneNode?.(true) || el,
+        `Callback: ${callback.name || 'anonymous'}`
+      );
+      callback(e);
+    };
+
+    // Prevent duplicate listener
+    const alreadyAttached = el._uxlibListeners?.some(
+      (l) => l.type === eventType && l.originalCallback === callback
+    );
+    if (alreadyAttached) {
+      devWarn(`Duplicate listener prevented: ${eventType} on`, el);
+      return;
+    }
+
+    // Remove any previous instance of this callback
+    el.removeEventListener(eventType, wrappedCallback);
+    el.addEventListener(eventType, wrappedCallback);
+
+    // Track for debugging
+    if (!el._uxlibListeners) el._uxlibListeners = [];
+    el._uxlibListeners.push({
+      type: eventType,
+      originalCallback: callback,
+      wrappedCallback
+    });
+
+    devLog(
+      { collapsed: true },
+      `[onEvent:bind] ${eventType}`,
+      {
+        selector,
+        element: el.cloneNode?.(true) || el,
+        callback: callback.name || 'anonymous'
+      }
+    );
+  };
+
+  if (elements instanceof NodeList || Array.isArray(elements)) {
+    elements.forEach(addListener);
+  } else {
+    addListener(elements);
+  }
+}
+
+// Shortcut functions
+function onClick(selector, callback) {
+  onEvent(selector, 'click', callback);
+}
+
+function onHover(selector, callback) {
+  onEvent(selector, 'mouseover', callback);
+}
+
+function onChange(selector, callback) {
+  onEvent(selector, 'change', callback);
+}
+
+function onInput(selector, callback) {
+  onEvent(selector, 'input', callback);
+}
+
+// file: index.js
 init();
 
-export { DEBUG, callApi, copyToClipboard, devError, devLog, devWarn, formatDate, getData, getElement, getElements, getQueryParams, isArray, isDev, isEmpty, isMobile, isObject, isOnline, isString, randomColor, randomId, showToast, timeAgo, toastDefault, toastError, toastInfo, toastInverse, toastSuccess, toastWarning, toaster, updateQueryParam };
+export { DEBUG, callApi, copyToClipboard, devError, devLog, devWarn, formatDate, getData, getElement, getElements, getQueryParams, isArray, isDev, isEmpty, isMobile, isObject, isOnline, isString, onChange, onClick, onEvent, onHover, onInput, randomColor, randomId, showToast, timeAgo, toastDefault, toastError, toastInfo, toastInverse, toastSuccess, toastWarning, toaster, updateQueryParam };
