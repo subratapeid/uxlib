@@ -895,7 +895,7 @@ const readableSelector =
   return selectedElement;
 }
 
-// 📁 src/utils/dom/getElements.js
+
 
 /**
  * @function getElements
@@ -1109,10 +1109,133 @@ function onInput(selector, callback) {
   onEvent(selector, 'input', callback);
 }
 
+/**
+ * // Example usage:
+
+// // 1️⃣ Normal toggle
+// toggleClass('.btn', 'active');
+
+// // 2️⃣ Smart toggle: show ↔ hide
+// toggleClass('#sidebar', ['show', 'hide']);
+
+// // 3️⃣ Add class
+// addClass('.menu', 'open');
+
+ * Add class to element(s)
+ * @param {string|HTMLElement} selector - Selector or element
+ * @param {string} className - Class to add
+ */
+// Silent versions of ggetElements
+const getElementsSilent = withNoLog(getElements);
+
+/**
+ * Add class to element(s) silently
+ */
+function getElementsArray(selector) {
+    return Array.isArray(selector)
+        ? selector
+        : typeof selector === "string"
+            ? getElementsSilent(selector)
+            : [selector];
+}
+
+function addClass(selector, className) {
+    const elements = getElementsArray(selector);
+
+    if (!elements || !elements.length) {
+        devWarn(`[addClass] ❌ No elements found for selector: "${selector}"`);
+        return;
+    }
+
+    elements.forEach((el) => {
+        if (!el.classList.contains(className)) {
+            el.classList.add(className);
+            devLog(`[addClass] ✅ Added class "${className}" to:`, el);
+        } else {
+            devLog(`[addClass] ℹ️ Element already has class "${className}":`, el);
+        }
+    });
+}
+// Remove class
+function removeClass(selector, className) {
+    const elements = getElementsArray(selector);
+
+    if (!elements || !elements.length) {
+        devWarn(`[removeClass] ❌ No elements found for selector: "${selector}"`);
+        return;
+    }
+
+    elements.forEach((el) => {
+        if (el.classList.contains(className)) {
+            el.classList.remove(className);
+            devLog(`[removeClass] 🗑️ Removed class "${className}" from:`, el);
+        } else {
+            devLog(`[removeClass] ℹ️ Element does not have class "${className}":`, el);
+        }
+    });
+}
+
+// Toggle class (supports swapping between two classes)
+function toggleClass(selector, className) {
+    const elements = getElementsArray(selector);
+
+    if (!elements || !elements.length) {
+        devWarn(`[toggleClass] ❌ No elements found for selector: "${selector}"`);
+        return;
+    }
+
+    elements.forEach((el) => {
+        if (Array.isArray(className) && className.length === 2) {
+            const [classA, classB] = className;
+            el.classList.contains(classA)
+                ? (removeClass(el, classA), addClass(el, classB))
+                : (removeClass(el, classB), addClass(el, classA));
+        } 
+        else if (typeof className === "string") {
+            el.classList.contains(className)
+                ? removeClass(el, className)
+                : addClass(el, className);
+        } 
+        else {
+            devWarn(`[toggleClass] ❌ Invalid className provided`, className);
+        }
+    });
+}
+
+
+
+
+function show(selector, displayValue = "block") {
+    const elements = getElementsArray(selector);
+
+    if (!elements || !elements.length) {
+        devWarn(`[show] ❌ No elements found for selector: "${selector}"`);
+        return;
+    }
+    elements.forEach((el) => {
+        el.style.display = displayValue;
+        devLog(`[show] 👁️ Shown element (display: ${displayValue}):`, el);
+    });
+}
+
+function hide(selector) {
+    const elements = getElementsArray(selector);
+
+    if (!elements || !elements.length) {
+        devWarn(`[hide] ❌ No elements found for selector: "${selector}"`);
+        return;
+    }
+    elements.forEach((el) => {
+        el.style.display = "none";
+        devLog(`[hide] 🙈 Hidden element (display:none):`, el);
+    });
+}
+
 // file: index.js
 init();
 
 exports.DEBUG = DEBUG;
+exports.addClass = addClass;
 exports.callApi = callApi;
 exports.copyToClipboard = copyToClipboard;
 exports.devError = devError;
@@ -1123,6 +1246,7 @@ exports.getData = getData;
 exports.getElement = getElement;
 exports.getElements = getElements;
 exports.getQueryParams = getQueryParams;
+exports.hide = hide;
 exports.isArray = isArray;
 exports.isDev = isDev;
 exports.isEmpty = isEmpty;
@@ -1137,6 +1261,8 @@ exports.onHover = onHover;
 exports.onInput = onInput;
 exports.randomColor = randomColor;
 exports.randomId = randomId;
+exports.removeClass = removeClass;
+exports.show = show;
 exports.showToast = showToast;
 exports.timeAgo = timeAgo;
 exports.toastDefault = toastDefault;
@@ -1146,4 +1272,5 @@ exports.toastInverse = toastInverse;
 exports.toastSuccess = toastSuccess;
 exports.toastWarning = toastWarning;
 exports.toaster = toaster;
+exports.toggleClass = toggleClass;
 exports.updateQueryParam = updateQueryParam;

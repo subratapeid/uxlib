@@ -891,7 +891,7 @@ const readableSelector =
   return selectedElement;
 }
 
-// 📁 src/utils/dom/getElements.js
+
 
 /**
  * @function getElements
@@ -1105,7 +1105,129 @@ function onInput(selector, callback) {
   onEvent(selector, 'input', callback);
 }
 
+/**
+ * // Example usage:
+
+// // 1️⃣ Normal toggle
+// toggleClass('.btn', 'active');
+
+// // 2️⃣ Smart toggle: show ↔ hide
+// toggleClass('#sidebar', ['show', 'hide']);
+
+// // 3️⃣ Add class
+// addClass('.menu', 'open');
+
+ * Add class to element(s)
+ * @param {string|HTMLElement} selector - Selector or element
+ * @param {string} className - Class to add
+ */
+// Silent versions of ggetElements
+const getElementsSilent = withNoLog(getElements);
+
+/**
+ * Add class to element(s) silently
+ */
+function getElementsArray(selector) {
+    return Array.isArray(selector)
+        ? selector
+        : typeof selector === "string"
+            ? getElementsSilent(selector)
+            : [selector];
+}
+
+function addClass(selector, className) {
+    const elements = getElementsArray(selector);
+
+    if (!elements || !elements.length) {
+        devWarn(`[addClass] ❌ No elements found for selector: "${selector}"`);
+        return;
+    }
+
+    elements.forEach((el) => {
+        if (!el.classList.contains(className)) {
+            el.classList.add(className);
+            devLog(`[addClass] ✅ Added class "${className}" to:`, el);
+        } else {
+            devLog(`[addClass] ℹ️ Element already has class "${className}":`, el);
+        }
+    });
+}
+// Remove class
+function removeClass(selector, className) {
+    const elements = getElementsArray(selector);
+
+    if (!elements || !elements.length) {
+        devWarn(`[removeClass] ❌ No elements found for selector: "${selector}"`);
+        return;
+    }
+
+    elements.forEach((el) => {
+        if (el.classList.contains(className)) {
+            el.classList.remove(className);
+            devLog(`[removeClass] 🗑️ Removed class "${className}" from:`, el);
+        } else {
+            devLog(`[removeClass] ℹ️ Element does not have class "${className}":`, el);
+        }
+    });
+}
+
+// Toggle class (supports swapping between two classes)
+function toggleClass(selector, className) {
+    const elements = getElementsArray(selector);
+
+    if (!elements || !elements.length) {
+        devWarn(`[toggleClass] ❌ No elements found for selector: "${selector}"`);
+        return;
+    }
+
+    elements.forEach((el) => {
+        if (Array.isArray(className) && className.length === 2) {
+            const [classA, classB] = className;
+            el.classList.contains(classA)
+                ? (removeClass(el, classA), addClass(el, classB))
+                : (removeClass(el, classB), addClass(el, classA));
+        } 
+        else if (typeof className === "string") {
+            el.classList.contains(className)
+                ? removeClass(el, className)
+                : addClass(el, className);
+        } 
+        else {
+            devWarn(`[toggleClass] ❌ Invalid className provided`, className);
+        }
+    });
+}
+
+
+
+
+function show(selector, displayValue = "block") {
+    const elements = getElementsArray(selector);
+
+    if (!elements || !elements.length) {
+        devWarn(`[show] ❌ No elements found for selector: "${selector}"`);
+        return;
+    }
+    elements.forEach((el) => {
+        el.style.display = displayValue;
+        devLog(`[show] 👁️ Shown element (display: ${displayValue}):`, el);
+    });
+}
+
+function hide(selector) {
+    const elements = getElementsArray(selector);
+
+    if (!elements || !elements.length) {
+        devWarn(`[hide] ❌ No elements found for selector: "${selector}"`);
+        return;
+    }
+    elements.forEach((el) => {
+        el.style.display = "none";
+        devLog(`[hide] 🙈 Hidden element (display:none):`, el);
+    });
+}
+
 // file: index.js
 init();
 
-export { DEBUG, callApi, copyToClipboard, devError, devLog, devWarn, formatDate, getData, getElement, getElements, getQueryParams, isArray, isDev, isEmpty, isMobile, isObject, isOnline, isString, onChange, onClick, onEvent, onHover, onInput, randomColor, randomId, showToast, timeAgo, toastDefault, toastError, toastInfo, toastInverse, toastSuccess, toastWarning, toaster, updateQueryParam };
+export { DEBUG, addClass, callApi, copyToClipboard, devError, devLog, devWarn, formatDate, getData, getElement, getElements, getQueryParams, hide, isArray, isDev, isEmpty, isMobile, isObject, isOnline, isString, onChange, onClick, onEvent, onHover, onInput, randomColor, randomId, removeClass, show, showToast, timeAgo, toastDefault, toastError, toastInfo, toastInverse, toastSuccess, toastWarning, toaster, toggleClass, updateQueryParam };
