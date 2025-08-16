@@ -7,7 +7,6 @@
   "module": "dist/uxlib.mjs.js",
   "unpkg": "dist/uxlib.min.js",
   "browser": "dist/uxlib.js",
-  "type": "module",
   "exports": {
     ".": {
       "import": "./dist/uxlib.mjs.js",
