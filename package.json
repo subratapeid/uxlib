@@ -4,13 +4,13 @@
   "description": "A clean and powerful utility library by Subrata",
   "sideEffects": false,
   "main": "dist/uxlib.cjs.js",
-  "module": "dist/uxlib.es.js",
+  "module": "dist/uxlib.mjs.js",
   "unpkg": "dist/uxlib.min.js",
   "browser": "dist/uxlib.js",
   "type": "module",
   "exports": {
     ".": {
-      "import": "./dist/uxlib.es.js",
+      "import": "./dist/uxlib.mjs.js",
       "require": "./dist/uxlib.cjs.js",
       "default": "./dist/uxlib.js"
     },
@@ -18,6 +18,7 @@
   },
   "files": [
     "dist",
+    "package.json",
     "README.md",
     "LICENSE"
   ],

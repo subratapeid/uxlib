@@ -5,10 +5,6 @@
  * Github: https://github.com/subratapeid/uxlib
  */
 
-'use strict';
-
-Object.defineProperty(exports, '__esModule', { value: true });
-
 const UXConfig = {
     logDisabled: false
 };
@@ -1234,43 +1230,4 @@ function hide(selector) {
 // file: index.js
 init();
 
-exports.DEBUG = DEBUG;
-exports.addClass = addClass;
-exports.callApi = callApi;
-exports.copyToClipboard = copyToClipboard;
-exports.devError = devError;
-exports.devLog = devLog;
-exports.devWarn = devWarn;
-exports.formatDate = formatDate;
-exports.getData = getData;
-exports.getElement = getElement;
-exports.getElements = getElements;
-exports.getQueryParams = getQueryParams;
-exports.hide = hide;
-exports.isArray = isArray;
-exports.isDev = isDev;
-exports.isEmpty = isEmpty;
-exports.isMobile = isMobile;
-exports.isObject = isObject;
-exports.isOnline = isOnline;
-exports.isString = isString;
-exports.onChange = onChange;
-exports.onClick = onClick;
-exports.onEvent = onEvent;
-exports.onHover = onHover;
-exports.onInput = onInput;
-exports.randomColor = randomColor;
-exports.randomId = randomId;
-exports.removeClass = removeClass;
-exports.show = show;
-exports.showToast = showToast;
-exports.timeAgo = timeAgo;
-exports.toastDefault = toastDefault;
-exports.toastError = toastError;
-exports.toastInfo = toastInfo;
-exports.toastInverse = toastInverse;
-exports.toastSuccess = toastSuccess;
-exports.toastWarning = toastWarning;
-exports.toaster = toaster;
-exports.toggleClass = toggleClass;
-exports.updateQueryParam = updateQueryParam;
+export { DEBUG, addClass, callApi, copyToClipboard, devError, devLog, devWarn, formatDate, getData, getElement, getElements, getQueryParams, hide, isArray, isDev, isEmpty, isMobile, isObject, isOnline, isString, onChange, onClick, onEvent, onHover, onInput, randomColor, randomId, removeClass, show, showToast, timeAgo, toastDefault, toastError, toastInfo, toastInverse, toastSuccess, toastWarning, toaster, toggleClass, updateQueryParam };
